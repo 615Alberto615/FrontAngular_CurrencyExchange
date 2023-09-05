@@ -1,0 +1,32 @@
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <mat-card style="width: 80%; max-width: 600px; padding: 30px;">
+  
+      <h2 style="text-align: center;">Realiza una conversión</h2>
+  
+     <!-- Cantidad a convertir -->
+      <mat-form-field style="width: 100%;">
+        <mat-label>Cantidad $</mat-label>
+        <input matInput type="number" placeholder="Ingrese la cantidad a convertir" [(ngModel)]="amount">
+      </mat-form-field>
+
+      <!-- De moneda -->
+      <mat-form-field style="width: 48%;">
+        <mat-label>De</mat-label>
+        <input matInput type="text" placeholder="Moneda inicial" [(ngModel)]="fromCurrency">
+      </mat-form-field>
+
+      <!-- A moneda -->
+      <mat-form-field style="width: 48%;">
+        <mat-label>A</mat-label>
+        <input matInput type="text" placeholder="Moneda a convertir" [(ngModel)]="toCurrency">
+      </mat-form-field>
+
+      <!-- Botón Convertir -->
+      <div style="text-align: center; margin-top: 20px;">
+        <button mat-raised-button color="primary" (click)="convertCurrency()">Convertir</button>
+      </div>
+  
+    </mat-card>
+  </div>
+  
