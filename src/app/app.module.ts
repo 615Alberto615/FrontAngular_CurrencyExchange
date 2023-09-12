@@ -20,12 +20,34 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { APP_INITIALIZER } from '@angular/core';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+
+
+
+
+function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8080',
+        realm: 'realm1xd',
+        clientId: 'currencyweb'
+      },
+      initOptions: {
+        onLoad: 'check-sso',//login-required
+        silentCheckSsoRedirectUri:
+          window.location.origin + '/assets/silent-check-sso.html'
+      }
+    });
+}
+
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     ConversionsComponent,
-    PostComponent
+    PostComponent 
   ],
   imports: [
     BrowserModule,
@@ -38,9 +60,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,  
     MatCardModule, 
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    KeycloakAngularModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    }
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
