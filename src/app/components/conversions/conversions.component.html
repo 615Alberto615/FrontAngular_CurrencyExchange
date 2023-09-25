@@ -1,6 +1,10 @@
 <!-- conversions.component.html -->
 <div style="margin: 50px;">
 
+  <!-- Mostrar el mensaje de error aquí -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
   <br><br>
   <h2>Lista historica de Conversiones</h2>
   <ngx-spinner *ngIf="isLoading" bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
@@ -50,7 +54,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let conversion">
-        <button mat-raised-button color="primary">Actualizar</button>
+        <button mat-raised-button color="primary" (click)="openUpdateDialog(conversion)">Actualizar</button>
+
         <button mat-raised-button color="warn" (click)="deleteConversion(conversion.conversionId)">Eliminar</button>
 
       </td>

@@ -56,5 +56,21 @@ export class ConversionRepository {
       })
     );
   }
+  updateConversionDate(conversionId: number, conversionDate: string): Observable<Conversion> {
+    return this.conversionsService.updateConversionDate(conversionId, conversionDate).pipe(
+      tap((updatedConversion: Conversion) => {
+        conversionsStore.update((state: ConversionsState) => ({
+          ...state,
+          conversions: state.conversions.map(conversion => 
+            conversion.conversionId === updatedConversion.conversionId ? updatedConversion : conversion
+          )
+        }));
+      }),
+      catchError(error => {
+        console.error("Error updating conversion date:", error);
+        return throwError(error);
+      })
+    );
+  }
   
 }

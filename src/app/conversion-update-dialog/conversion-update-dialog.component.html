@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Actualizar Fecha</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Elige una fecha" [(ngModel)]="conversionDate">
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button (click)="onConfirm()">Confirmar</button>
+</mat-dialog-actions>

@@ -24,11 +24,16 @@ export class PostComponent {
         },
         (error) => {
           console.error('Error during conversion:', error);
-          this.openSnackBar("Hubo un error al realizar la conversión.");
+          if (error.status === 403) {
+            this.openSnackBar("No tiene permiso para realizar esta transacción.");
+          } else {
+            this.openSnackBar("Hubo un error al realizar la conversión.");
+          }
         }
       );
     }
   }
+  
 
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Cerrar', {

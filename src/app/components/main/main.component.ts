@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class MainComponent {
   title = 'Currency Converter';
+  constructor(private keycloakService: KeycloakService) {}
+
+  logout(): void {
+    this.keycloakService.logout();
+    alert('Sesión cerrada');
+  }
+  
 }

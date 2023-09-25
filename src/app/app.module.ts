@@ -22,9 +22,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { APP_INITIALIZER } from '@angular/core';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
+import { ConversionUpdateDialogComponent } from './conversion-update-dialog/conversion-update-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
-
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { Error403Component } from './error403/error403.component';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -47,7 +50,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
     AppComponent,
     MainComponent,
     ConversionsComponent,
-    PostComponent 
+    PostComponent,
+    ConversionUpdateDialogComponent,
+    Error403Component 
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,11 @@ function initializeKeycloak(keycloak: KeycloakService) {
     MatCardModule, 
     FormsModule,
     MatSnackBarModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    
   ],
   providers: [
     {
