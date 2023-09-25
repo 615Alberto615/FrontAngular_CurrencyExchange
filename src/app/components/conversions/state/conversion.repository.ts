@@ -22,14 +22,29 @@ export class ConversionRepository {
       return { ...state, conversions: [...state.conversions, conversion] };
     });
   }
+  
 
   fetchConversionsFromAPI(): void {
     this.conversionsService.getConversions().subscribe(conversions => {
       this.setConversions(conversions); // Utiliza el método setConversions para actualizar el estado
-    }, error => {
-      console.error("Error fetching conversions:", error);
+    }), catchError(error => {
+      console.error("Error deleting conversion:", error);
+        return throwError(error);
     });
   }
+/*
+  fetchConversionsFromAPI(): Observable<Conversion> {
+    return this.conversionsService.getConversions().pipe(
+      tap((conversion: Conversion) => {
+        this.getConversions(); // actualiza el estado
+      }),
+      catchError(error => {
+        console.error("Error during currency conversion:", error);
+        return throwError(error);
+      })
+    );
+  }
+*/
   deleteConversion(conversionId: number): Observable<any> {
     // Nota que ahora retorna el observable
     return this.conversionsService.deleteConversion(conversionId).pipe(

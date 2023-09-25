@@ -11,57 +11,64 @@
     <p style="color: white"> Loading... </p>
   </ngx-spinner>
   <br><br>
+  <!-- Mostrar la tabla si hay conversiones y no está cargando -->
+  <div *ngIf="conversions.length > 0 && !isLoading">
+    <table mat-table [dataSource]="conversions" *ngIf="!isLoading" class="mat-elevation-z8">
 
-  <table mat-table [dataSource]="conversions" *ngIf="!isLoading" class="mat-elevation-z8">
+      <!-- ID de Conversión Column -->
+      <ng-container matColumnDef="conversionId">
+        <th mat-header-cell *matHeaderCellDef> ID de Conversión </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.conversionId}} </td>
+      </ng-container>
+  
+      <!-- Desde Moneda Column -->
+      <ng-container matColumnDef="fromCurrencyCode">
+        <th mat-header-cell *matHeaderCellDef> Desde Moneda </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.fromCurrencyCode}} </td>
+      </ng-container>
+  
+      <!-- Hacia Moneda Column -->
+      <ng-container matColumnDef="toCurrencyCode">
+        <th mat-header-cell *matHeaderCellDef> Hacia Moneda </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.toCurrencyCode}} </td>
+      </ng-container>
+  
+      <!-- Cantidad Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Cantidad </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.amount}} </td>
+      </ng-container>
+  
+      <!-- Cantidad Convertida Column -->
+      <ng-container matColumnDef="convertedAmount">
+        <th mat-header-cell *matHeaderCellDef> Cantidad Convertida </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.convertedAmount}} </td>
+      </ng-container>
+  
+      <!-- Fecha de Conversión Column -->
+      <ng-container matColumnDef="conversionDate">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Conversión </th>
+        <td mat-cell *matCellDef="let conversion"> {{conversion.conversionDate | date:'medium'}} </td>
+      </ng-container>
+  
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let conversion">
+          <button mat-raised-button color="primary" (click)="openUpdateDialog(conversion)">Actualizar</button>
+  
+          <button mat-raised-button color="warn" (click)="deleteConversion(conversion.conversionId)">Eliminar</button>
+  
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div *ngIf="conversions.length === 0 && !isLoading">
+    <p>No tiene permiso para ver esto.</p>
+  </div>
 
-    <!-- ID de Conversión Column -->
-    <ng-container matColumnDef="conversionId">
-      <th mat-header-cell *matHeaderCellDef> ID de Conversión </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.conversionId}} </td>
-    </ng-container>
-
-    <!-- Desde Moneda Column -->
-    <ng-container matColumnDef="fromCurrencyCode">
-      <th mat-header-cell *matHeaderCellDef> Desde Moneda </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.fromCurrencyCode}} </td>
-    </ng-container>
-
-    <!-- Hacia Moneda Column -->
-    <ng-container matColumnDef="toCurrencyCode">
-      <th mat-header-cell *matHeaderCellDef> Hacia Moneda </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.toCurrencyCode}} </td>
-    </ng-container>
-
-    <!-- Cantidad Column -->
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.amount}} </td>
-    </ng-container>
-
-    <!-- Cantidad Convertida Column -->
-    <ng-container matColumnDef="convertedAmount">
-      <th mat-header-cell *matHeaderCellDef> Cantidad Convertida </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.convertedAmount}} </td>
-    </ng-container>
-
-    <!-- Fecha de Conversión Column -->
-    <ng-container matColumnDef="conversionDate">
-      <th mat-header-cell *matHeaderCellDef> Fecha de Conversión </th>
-      <td mat-cell *matCellDef="let conversion"> {{conversion.conversionDate | date:'medium'}} </td>
-    </ng-container>
-
-    <!-- Acciones Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let conversion">
-        <button mat-raised-button color="primary" (click)="openUpdateDialog(conversion)">Actualizar</button>
-
-        <button mat-raised-button color="warn" (click)="deleteConversion(conversion.conversionId)">Eliminar</button>
-
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  
 </div>

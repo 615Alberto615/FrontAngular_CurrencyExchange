@@ -97,7 +97,9 @@ export class ConversionsComponent implements OnInit {
       duration: 6000,
     });
   }
-  
+  get isListEmpty(): boolean {
+    return this.conversions && this.conversions.length === 0;
+  }
   
 }
 /*
@@ -214,4 +216,46 @@ export class ConversionsComponent implements OnInit {
   
 }
 
+*/
+/*
+ngOnInit(): void {
+    //this.errorMessage = "No tiene permiso para realizar esta transacción.";
+    this.spinner.show();
+
+
+    this.conversionRepo.fetchConversionsFromAPI();
+
+    this.conversionRepo.conversions$.subscribe((response: Conversion[] | HttpResponse<any>) => {
+      if (response instanceof HttpResponse) {
+        console.log("Status:", response.status);
+        if (response.status == 403) {
+          this.errorMessage = "No tiene permiso para realizar esta transacción.";  
+          console.log("Detectado error 403. Intentando navegar...");
+          this.spinner.hide();
+          this.isLoading = false;
+        }
+        else {
+          this.errorMessage = "Error al obtener las conversiones.";  
+        }
+      }
+      //this.spinner.hide();
+      //this.isLoading = false;
+      console.log("llega al spinner");
+      //this.errorMessage = null; 
+    },
+    (error)=>{
+      console.error("Error:", error);
+      console.log("llega al error no ak if");
+      if (error.status == 403) {
+        this.errorMessage = "No tiene permiso para realizar esta transacción.";  
+        console.log("Detectado error 403. Intentando navegar...");
+      } else {
+        this.errorMessage = "Error al obtener las conversiones.";  
+      }
+      this.spinner.hide();
+      this.isLoading = false;
+    }
+    );
+   
+  }
 */
